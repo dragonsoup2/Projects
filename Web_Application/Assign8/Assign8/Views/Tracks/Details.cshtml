@@ -1,0 +1,46 @@
+﻿@model Assign8.Controllers.TrackWithDetail
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>About tracks</h2>
+
+<div>
+    <h4>Details of @Html.DisplayFor(model => model.Name)</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+            <hr />
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TrackUpload)
+        </dt>
+
+        <dd>
+            <audio controls>
+                <source src="@Model.Path" type="@Model.TrackUpload" />
+            </audio>
+            <hr />
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Composers)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Composers)
+            <hr />
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
