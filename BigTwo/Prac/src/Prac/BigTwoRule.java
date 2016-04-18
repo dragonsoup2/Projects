@@ -38,7 +38,7 @@ public class BigTwoRule extends Rule
 	}
 	public boolean twoPair(ArrayList<Card> cardDealt)
 	{
-		boolean valid = true;
+		/*boolean valid = true;
 		ArrayList<Card> twopairs = new ArrayList<Card>();
 		int count = 0;
 		if(cardDealt.size() != 4)
@@ -57,8 +57,9 @@ public class BigTwoRule extends Rule
 				}
 			if(count != 2)
 				valid = false;
-		}
-		return valid;
+		}*/
+		// Since there is no such a rule that a player play two pairs.
+		return false;
 	}
 	public boolean triple(ArrayList<Card> cardDealt)
 	{

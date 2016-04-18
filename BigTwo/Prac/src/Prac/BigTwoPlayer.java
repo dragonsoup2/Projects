@@ -8,7 +8,7 @@ public class BigTwoPlayer implements Player
 	Rule rule;
 	ArrayList<Card> card;
 	ArrayList<Card> opponentCard;
-	int myPlayedCard;
+	ArrayList<Card> myPlayedCard;
 	String name;
 	
 	public BigTwoPlayer()
@@ -16,9 +16,9 @@ public class BigTwoPlayer implements Player
 		rule = new BigTwoRule();
 		card = new ArrayList<Card>();
 		opponentCard = new ArrayList<Card>();
-		myPlayedCard = -1;
+		myPlayedCard = new ArrayList<Card>();
 		name = "Yong";
-		System.out.println(name + " created");
+		//System.out.println(name + " created");
 	}
 	
 	@Override
@@ -30,10 +30,10 @@ public class BigTwoPlayer implements Player
 	public void setCard(ArrayList<Card> d) 
 	{
 		card = d;
-		System.out.print("Your cards are ");
+		/*System.out.print("Your cards are ");
 		for(int i = 0; i < card.size(); i++)
 			System.out.print(card.get(i).getNumber()+card.get(i).getSuit() + " ");
-		System.out.println();
+		System.out.println();*/
 	}
 
 	@Override
@@ -41,13 +41,19 @@ public class BigTwoPlayer implements Player
 	{
 		Scanner input = new Scanner(System.in);
 		ArrayList<Card> check;
+		ArrayList<Card> newCard = new ArrayList<Card>();
 		do
 		{
 			choice();
-			if(myPlayedCard != -1)
-			{
-				return allPassed(myPlayedCard);
-			}
+
+			if(!myPlayedCard.isEmpty())
+				newCard = allPassed(myPlayedCard);
+			else
+				newCard = null;
+
+			if(newCard != null)
+				return newCard;
+			
 			System.out.print("Choose your card(s) or type pass - ");
 			String chosen = input.next();
 			System.out.println("---------------------------------------------------");
@@ -85,36 +91,48 @@ public class BigTwoPlayer implements Player
 					|| rule.fourOfaKind(cardPlayed) || rule.straight(cardPlayed) || rule.flush(cardPlayed)
 					|| rule.straightFlush(cardPlayed))
 				{	
+					//if(choice.length == 1)
+					myPlayedCard = cardPlayed;
 					for(int i = 0; i < cardPlayed.size(); i++)
 					{
 						cardPlayed.get(i).cardRemove(this);
 					}
-					myPlayedCard = num;
 					return cardPlayed;
 				}
 				
 		return null;
 	}
-	public ArrayList<Card> allPassed(int cardIndex)
+	public ArrayList<Card> allPassed(ArrayList<Card> playedCard)
 	{
 		Scanner input = new Scanner(System.in);
 		ArrayList<Card> playCard = new ArrayList<Card>();
-		if(card.get(cardIndex).getNumber() == opponentCard.get(0).getNumber() &&
-				card.get(cardIndex).getSuit().equals(opponentCard.get(0).getSuit() ))
-		{
-			System.out.println("---------------------------------------------------");
-			System.out.println("All other players passed!");
-			System.out.print("Pick any card - ");
-			String chosen = input.next();
-			String choice[] = chosen.split(" ");
-			int num;
-			
-			for(int i = 0; i < choice.length; i++)
+		
+			if(playedCard.get(0).getNumber() == opponentCard.get(0).getNumber() && playedCard.get(0).getSuit().equals(opponentCard.get(0).getSuit() ))
 			{
-				num = Integer.parseInt(choice[i]) - 1;
-				playCard.add(card.get(num));	
+				System.out.println("---------------------------------------------------");
+				System.out.println("All other players passed!");
+				System.out.print("Pick any card - ");
+				String chosen = input.next();
+				System.out.println("---------------------------------------------------");
+				System.out.println("---------------------------------------------------");
+				String choice[] = chosen.split(",");
+				int num;
+				
+				for(int i = 0; i < choice.length; i++)
+				{
+					num = Integer.parseInt(choice[i]) - 1;
+					playCard.add(card.get(num));	
+				}
+				
+				//if(choice.length == 1)
+					myPlayedCard = playCard;
+				for(int i = 0; i < playCard.size(); i++)
+				{
+					playCard.get(i).cardRemove(this);
+				}
 			}
-		}
+			else
+				playCard = null;
 	
 		return playCard;
 	}
@@ -135,8 +153,9 @@ public class BigTwoPlayer implements Player
 	{
 		System.out.println("---------------------------------------------------");
 		System.out.println("-----------------Your cards in hand----------------");
+
 		for(int i = 0; i < card.size(); i++)
-			System.out.print(card.get(i).getNumber()+card.get(i).getSuit() + " ");
+			System.out.print("(" + (i+1) + ")" + "-" + card.get(i).getNumber()+card.get(i).getSuit() + " ");
 		System.out.println();
 	}
 	

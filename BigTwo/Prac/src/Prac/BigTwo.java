@@ -35,23 +35,33 @@ public class BigTwo implements Game
 					System.out.println(players.get(i).getName() + " win the game!!!");
 					noCard = true;
 				}
-				if(i != players.size()-1 && opponent != null)
+				if(i != 3 && opponent != null)
+				{
 					players.get(i+1).setCardOnTheTable(opponent);
-				else if(i != players.size()-1 && opponent == null)
-					players.get(i+1).setCardOnTheTable(players.get(i+1).getCardOnTheTable());
+				}
+				else if(i != 3 && opponent == null)
+				{
+					players.get(i+1).setCardOnTheTable(players.get(i).getCardOnTheTable());
+				}
 			}
+			
 			if(!noCard && opponent == null)
+			{
 				players.get(0).setCardOnTheTable(players.get(3).getCardOnTheTable());
-			else
+			}
+			else if(!noCard && opponent != null)
+			{
 				players.get(0).setCardOnTheTable(opponent);
+			}
 		}
 		while(!noCard);
 	}
 	public void findFirstTurn() 
 	{
 		Player player = null;
-		BigTwoCard firstCard = null;
+		BigTwoCard firstcard = null;
 		ArrayList<Card> cardPlayed = new ArrayList<Card>();
+		
 		for(int i = 0; i < players.size() && player == null; i++)
 		{
 			ArrayList<Card> card = players.get(i).getHand();
@@ -59,13 +69,13 @@ public class BigTwo implements Game
 			{
 				if(card.get(r).getNumber() == 1 && card.get(r).getSuit().equals("d"))
 				{
-					firstCard = new BigTwoCard(1, "d");
-					cardPlayed.add(firstCard);
+					firstcard = new BigTwoCard(1, "d");
+					cardPlayed.add(firstcard);
 					player = players.get(i);
 				}
 			}
 		}
-		firstCard.firstCard(player);//bigtwocard class
+		firstcard.firstCard(player);//bigtwocard class
 		players = player.reArrange(players);//bigtwoplayer class
 		players.get(0).setCardOnTheTable(cardPlayed);
 	}
