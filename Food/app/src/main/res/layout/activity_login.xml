@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#A9BCF5"
+
+    tools:context="com.example.drago.food.Login">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="80pt"
+        android:layout_marginBottom="100pt"
+        android:layout_marginTop="40pt"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/food"
+        android:id="@+id/imageView"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="ID"
+        android:ems="10"
+        android:id="@+id/un"
+        android:layout_alignTop="@+id/imageView"
+        android:layout_alignLeft="@+id/imageView"
+        android:layout_alignStart="@+id/imageView"
+        android:layout_marginTop="178dp"
+        android:layout_alignRight="@+id/imageView"
+        android:layout_alignEnd="@+id/imageView" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/pw"
+        android:layout_below="@+id/un"
+        android:layout_alignLeft="@+id/un"
+        android:layout_alignStart="@+id/un"
+        android:layout_alignRight="@+id/un"
+        android:layout_alignEnd="@+id/un"
+        android:text="Password" />
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Log In"
+        android:id="@+id/li"
+        android:layout_below="@+id/pw"
+        android:layout_alignLeft="@+id/imageView"
+        android:layout_alignStart="@+id/imageView"
+        android:layout_alignRight="@+id/imageView"
+        android:layout_alignEnd="@+id/imageView" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Forgot PW/ID"
+        android:id="@+id/fg"
+        android:layout_below="@+id/li"
+        android:layout_alignStart="@+id/imageView"
+        android:textSize="11dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        android:id="@+id/rg"
+        android:layout_below="@+id/li"
+        android:layout_alignRight="@+id/li"
+        android:layout_alignEnd="@+id/li"
+        android:layout_toEndOf="@+id/fg"
+        android:layout_alignTop="@+id/fg"
+        android:textSize="10dp" />
+</RelativeLayout>

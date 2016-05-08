@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Main Menu</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Closed</string>
+    <string name="action_websearch">Web search</string>
+    <string name="app_not_available">Sorry, there\'s no web browser available</string>
+
+</resources>
+
