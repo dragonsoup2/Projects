@@ -1,0 +1,20 @@
+#title{
+	color: #088A08;
+	text-align: center;
+	margin-left: 550px;
+	margin-right: 550px;
+	
+}
+#footer{
+	font-weight: bold;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+}
+#bold{
+	font-weight: bold;
+}
+#boldsession{
+	font-weight: bold;
+	margin-right: 10px;
+}
