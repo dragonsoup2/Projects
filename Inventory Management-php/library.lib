@@ -36,29 +36,26 @@ class allmenu
 	{
 ?>
 			<html lang = "en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-  <link rel='stylesheet' type='text/css' href='//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'/>
-  <link href="style.css" rel="stylesheet">
-</head>
+			<head>
+			  <meta charset="utf-8">
+			  <meta name="viewport" content="width=device-width, initial-scale=1">
+			  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+			  <link rel='stylesheet' type='text/css' href='//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'/>
+			  <link href="style.css" rel="stylesheet">
+			</head>
 			<body>
-			
-			<h2 id = "title" class = "bg-success"> Old Book Collection</h2>
-			<img class="img-responsive center-block" src = "http://public.media.smithsonianmag.com/legacy_blog/06_17_2013_book-smell.jpg"/>
-			<hr/>
-			<table class = "table table-striped">
-			<tr >
-			<form method = "post" action = "view.php">
-			<td><p id = "bold"><a href = "add.php">Add</a> | <a href = "view.php?done=1">View all</a></p></td>
-			<td id = "bold" align = "right">Search : <input type = "text"  name = "descr" value ="<?php if(isset($_SESSION['search_text'])) echo $_SESSION['search_text']; ?>"></td>
-			<td id = "bold"align = "left"><input type = "submit" value="FIND"/></td>
-			<td><?php $this->session();?></td>
-			<td id = "bold"align = "left"><a href = "logout.php"><font size = "1px">LogOut</font></a></td>
-			</tr>
-			</table>
-			</form>
+				<table id = "menu-striped" class = "table table-striped">
+					<tr >
+						<form method = "post" action = "view.php">
+							<td><p id = "bold"><a href = "add.php">Add</a> | <a href = "view.php?done=1">View all</a></p></td>
+							<td id = "bold" align = "right">Search : <input type = "text"  name = "descr" value ="<?php if(isset($_SESSION['search_text'])) echo $_SESSION['search_text']; ?>"></td>
+							<td id = "bold"align = "left"><input type = "submit" value="FIND"/></td>
+							<td><?php $this->session();?></td>
+							<td id = "bold"align = "left"><a href = "logout.php"><font size = "1px">LogOut</font></a></td>
+						</form>
+					</tr>
+				</table>
+				<br/>
 			</body>
 			</html>
 <?php
@@ -148,8 +145,18 @@ class modify
 	function check_regex()
 	{
 		$datavalid = true;
+		
 		if($_POST)//there are 7 validations for texts and numbers
 		{
+		$_SESSION['yesorno'] = "";
+		$_SESSION['namemsg'] = "";
+		$_SESSION['descmsg'] = "";
+		$_SESSION['supcodemsg'] = "";
+		$_SESSION['costmsg'] = "";
+		$_SESSION['pricemsg'] = "";
+		$_SESSION['onhandmsg'] = "";
+		$_SESSION['reorpomsg'] = "";
+		
 			$name = $_POST['name'];
 			$desc = $_POST['desc'];
 			$supcode = $_POST['supcode'];
@@ -160,82 +167,81 @@ class modify
 
 				if(!empty($_POST['onbaorder']))
 				{
-					$onbaorder = $_POST['onbaorder'];
-					$yesorno = "y";
+					$_SESSION['yesorno'] = "y";
 				}
 				else
 				{
-					$yesorno = "n";
+					$_SESSION['yesorno'] = "n";
 				}
 
-			if(preg_match("/^[\s:'-;,a-zA-Z0-9]*$/", $_POST['name']) === 0)
+			if(preg_match("/^[\s:'\-;,a-zA-Z0-9]*$/", $_POST['name']) === 0)
 			{
-				$namemsg = "Error - It is invalid";
+				$_SESSION['namemsg'] = "Error - It is invalid";
 				$datavalid = false;
 			}
 			if(trim($_POST['name']) == "")
 			{
-					$namemsg = "Error - It's empty";
-					$datavalid = false;
+				$_SESSION['namemsg'] = "Error - It's empty";
+				$datavalid = false;
 			}			
-			if(preg_match("/^[\r\n.,'-\sa-zA-Z0-9]*$/", $_POST['desc']) === 0)
+			if(preg_match("/^[\r\n.,'\-\sa-zA-Z0-9]*$/", $_POST['desc']) === 0)
 			{
-				$descmsg = "Error - It is invalid";
+				$_SESSION['descmsg'] = "Error - It is invalid";
 				$datavalid = false;
 			}
 			if(trim($_POST['desc']) == "")
 			{
-				$descmsg = "Error - It's empty";
+				$_SESSION['descmsg'] = "Error - It's empty";
 				$datavalid = false;
 			}
 			if(preg_match("/^\s*[A-Z]{3}\d{3,}\s*$/", $_POST['supcode']) === 0)
 			{
-				$supcodemsg = "Error - It is invalid";
+				$_SESSION['supcodemsg'] = "Error - It is invalid";
 				$datavalid = false;
 			}
 			if(trim($_POST['supcode']) == "")
 			{
-				$supcodemsg = "Error - It's empty";
+				$_SESSION['supcodemsg'] = "Error - It's empty";
 				$datavalid = false;
 			}
 			if(preg_match("/^\s*[0-9]+\.\d{2}\s*$/", $_POST['cost']) === 0)
 			{
-				$costmsg = "Error - It is invalid";
+				$_SESSION['costmsg'] = "Error - It is invalid";
 				$datavalid = false;
 			}
 			if(trim($_POST['cost']) == "")
 			{
-				$costmsg = "Error - It's empty";
+				$_SESSION['costmsg'] = "Error - It's empty";
 				$datavalid = false;
 			}
 			if(preg_match("/^\s*[0-9]+\.\d{2}\s*$/", $_POST['price']) === 0)
 			{
-				$pricemsg = "Error - It is invalid";
+				$_SESSION['pricemsg'] = "Error - It is invalid";
 				$datavalid = false;
 			}
 			if(trim($_POST['price']) == "")
 			{
-				$pricemsg = "Error - It's empty";
+				$_SESSION['pricemsg'] = "Error - It's empty";
 				$datavalid = false;
 			}
 			if(preg_match("/^\s*[0-9]+\s*$/", $_POST['onhand']) === 0)
 			{
-				$onhandmsg = "Error - Only numeric values please";
+				$_SESSION['onhandmsg'] = "Error - Only numeric values please";
 				$datavalid = false;
 			}
 			if(trim($_POST['onhand']) == "")
 			{
-				$onhandmsg = "Error - It's empty";
+				$_SESSION['onhandmsg'] = "Error - It's empty";
 				$datavalid = false;
 			}
 			if(preg_match("/^\s*[0-9]+\s*$/", $_POST['reorpo']) === 0)
 			{
-				$reorpomsg = "Error - Only numeric values please";
+				$_SESSION['reorpomsg'] = "Error - Only numeric values please";
 				$datavalid = false;
 			}
 			if(trim($_POST['reorpo']) == "")
 			{
-				$reorpomsg = "Error - It's empty";
+				$_SESSION['reorpomsg'] = "Error - It's empty";
 				$datavalid = false;
 			}
 			return $datavalid;

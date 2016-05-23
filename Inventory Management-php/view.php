@@ -69,10 +69,18 @@ if(isset($_SESSION['login']))//if login is successful,
   <link rel='stylesheet' type='text/css' href='//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'/>
 </head>
 <body>
+<div id = "backgroundImage" class = "img-responsive center-block">
+
+			<h2 id = "title" class = "bg-primary"> Old Book Collection</h2>
+			<hr/>
+<div id = "bigger-container">
+<!--div id = "container"-->
+<!--img id = "image" class="img-responsive center-block" src = "http://public.media.smithsonianmag.com/legacy_blog/06_17_2013_book-smell.jpg"/-->
 <?php
 $menu->input();
 ?>
-				<table class = "table table-striped" align = "center">
+<div id = "bigger-table">
+				<table id = "table-striped" class = "table table-striped">
 				
 					<th><a href = "view.php?sorting=id">ID</a></th>
 					<th><a href = "view.php?sorting=itemName">Item name</a></th>
@@ -105,7 +113,12 @@ $menu->input();
 					}
 					?>
 				</table>
-</body>
+				</div>
+			<!--/div-->
+			</div>
+			</div>
+			<?php $menu->footer();?>
+	</body>
 </html>			
 <?php
 			}
@@ -114,8 +127,6 @@ $menu->input();
 				echo "No records found for search = '". $_SESSION['search_text'] ."'";
 			}
 $dabase->close();
-$menu->footer();
-
 }
 else
 {

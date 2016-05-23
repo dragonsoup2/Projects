@@ -1,5 +1,5 @@
 #title{
-	color: #088A08;
+	color: white;
 	text-align: center;
 	margin-left: 550px;
 	margin-right: 550px;
@@ -11,6 +11,41 @@
 	bottom: 0;
 	left: 0;
 }
+#table-striped{
+	width: 300px;
+	margin: 0 auto;
+}
+#menu-striped{
+	width: 800px;
+	margin: 0 auto;
+}
+#bigger-table{
+	border: 1px solid #819FF7;
+	width: 800px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	margin: 0 auto;
+}
+#bigger-container{
+	width:800px;
+	background-color:white;
+	margin:auto;
+	z-index:-1;
+	opacity: 1;
+	filter:alpha(opacity=100);
+}
+#container {
+  height: 100%;
+  width: 100%;
+  display: table;
+   margin:0 auto;
+}
+#image {
+  opacity: 0.1;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
 #bold{
 	font-weight: bold;
 }
@@ -18,3 +53,19 @@
 	font-weight: bold;
 	margin-right: 10px;
 }
+#backgroundImage:before {
+	content: "";
+	position: absolute;
+	z-index: -1;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-image: url(http://public.media.smithsonianmag.com/legacy_blog/06_17_2013_book-smell.jpg);
+	background-repeat: no-repeat;
+	background-size: 100%;
+	opacity: 0.4;
+	filter:alpha(opacity=40);
+	height:100%;
+	width:100%;
+ }
