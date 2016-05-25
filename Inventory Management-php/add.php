@@ -1,3 +1,4 @@
+<!doctype html>
 <?php
 	include "library.lib";
 	session_start();
@@ -120,28 +121,38 @@ if(isset($_GET['mod']))
 {
 	$modify->modi($_GET['mod']);
 }
+?>
+<html lang = "en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  <link rel='stylesheet' type='text/css' href='//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'/>
+</head>
+<div id = "backgroundImage" class = "img-responsive center-block">
+
+			<h2 id = "title" class = "bg-primary"> Old Book Collection</h2>
+			<hr/>
+<?php
 $add_menu->input();
 ?>
-<html>
-	<body>
-	<div id = "containter">
-			<img class="img-responsive center-block" src = "http://public.media.smithsonianmag.com/legacy_blog/06_17_2013_book-smell.jpg"/ width = "100%" height = "100%" style = "opacity: 0.4;">
-		</br><form method = "post" action = "">
-			<table>
-				<tr>
+<div id = "add-container">
+			<h2 align = "center" class = "bg-success"> Add Items</h2>
+			<hr/>
+		<form method = "post" action = "">
+			<table id = "table-space">
 					<?php
 					if(isset($_GET['mod']))
 					{
 					?>
 				<tr>
 					<td align = "right" >ID</td>
-					<td align = "left">
-					<input type="text" name="modify_id" value="<?php echo $_GET['mod'];?>" readonly="readonly"/>
-					</td>
+					<td align = "left"><input type="text" name="modify_id" value="<?php echo $_GET['mod'];?>" readonly="readonly"/></td>
 				</tr>
 					<?php
 					}
 					?>
+				<tr>
 					<td align = "right" >Item name:</td>
 					<td align = "left"><input type = "text" name = "name" value = "<?php
 					if(isset($_GET['mod']))//if an user clicks id link, then it retrieves get variable from that link and decide if it has value or not. If there is, we repopulate the data right before an user modifies.
@@ -154,7 +165,7 @@ $add_menu->input();
 					}
 					?>"></td>
 
-					<td width = "800px"><?php echo "<p><font color=red>".$_SESSION['namemsg']."</font></p>";?></td>
+					<td width = "500px"><?php echo "<p><font color=red>".$_SESSION['namemsg']."</font></p>";?></td>
 				</tr>
 				<tr>
 					<td align = "right">Description:</td>
@@ -167,7 +178,7 @@ $add_menu->input();
 					{
 					echo $desc;
 					}?></textarea></td>
-					<td width = "800px"><?php echo "<p><font color=red>".$_SESSION['descmsg']."</font></p>";?></td>
+					<td width = "500px"><?php echo "<p><font color=red>".$_SESSION['descmsg']."</font></p>";?></td>
 				</tr>
 				<tr>
 					<td align = "right">Supplier Code:</td>
@@ -180,7 +191,7 @@ $add_menu->input();
 					{
 						echo $supcode;
 					}?>"></td>
-					<td width = "800px"><?php echo "<p> <font color=red>".$_SESSION['supcodemsg']."</font></p>";?></td>
+					<td width = "500px"><?php echo "<p> <font color=red>".$_SESSION['supcodemsg']."</font></p>";?></td>
 				</tr>
 				<tr>
 					<td align = "right">Cost:</td>
@@ -193,7 +204,7 @@ $add_menu->input();
 					{
 						echo $cost;
 					}?>"></td>
-					<td width = "800px"><?php echo "<p> <font color=red>".$_SESSION['costmsg']."</font></p>";?></td>
+					<td width = "500px"><?php echo "<p> <font color=red>".$_SESSION['costmsg']."</font></p>";?></td>
 				</tr>
 				<tr>
 					<td align = "right">Selling price:</td>
@@ -206,7 +217,7 @@ $add_menu->input();
 					{
 						echo $price;
 					}?>"></td>
-					<td width = "800px"><?php echo "<p> <font color=red>".$_SESSION['pricemsg']."</font></p>";?></td>
+					<td width = "500px"><?php echo "<p> <font color=red>".$_SESSION['pricemsg']."</font></p>";?></td>
 				</tr>
 				<tr>
 					<td align = "right">Number on hand:</td>
@@ -219,7 +230,7 @@ $add_menu->input();
 					{
 						echo $onhand;
 					}?>"></td>
-					<td width = "800px"><?php echo "<p> <font color=red>".$_SESSION['onhandmsg']."</font></p>";?></td>
+					<td width = "500px"><?php echo "<p> <font color=red>".$_SESSION['onhandmsg']."</font></p>";?></td>
 				</tr>
 				<tr>
 					<td align = "right">Reorder Point:</td>
@@ -232,7 +243,7 @@ $add_menu->input();
 					{
 						echo $reorpo;
 					}?>"></td>
-					<td width = "800px"><?php echo "<p> <font color=red>".$_SESSION['reorpomsg']."</font></p>";?></td>
+					<td width = "500px"><?php echo "<p> <font color=red>".$_SESSION['reorpomsg']."</font></p>";?></td>
 				</tr>
 				<tr>
 					<td align = "right">On Back Order:</td>
@@ -251,6 +262,7 @@ $add_menu->input();
 				</tr>
 			</table>
 		</form>
+		</div>
 		</div>
 		<?php $add_menu->footer();?>
 	</body>

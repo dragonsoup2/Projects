@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <?php
 include("library.lib");
 session_start();
@@ -95,31 +96,60 @@ if(empty($_SESSION['login']))//if users recently logged in, those users go to vi
 	if(!$_POST && !isset($_GET['forgotpw']) || !$sccess)//if users type wrong username or password or haven't cicked forgot password link, go to the text field for login
 	{//if users click forgot password link, this retrieves get value from that link and directs to other text feild for typing username to match with right password.
 	?>
-<html>
+<html lang = "en">
+
+	<head>
+	  <meta charset="utf-8">
+	  <meta name="viewport" content="width=device-width, initial-scale=1">
+	  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	  <link rel='stylesheet' type='text/css' href='//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'/>
+	  <link href="style.css" rel="stylesheet">
+	</head>
+	<div id = "backgroundImage" class = "img-responsive center-block">
+	<h2 id = "title" class = "bg-primary"> Manager Your Inventory! </h2>
 	<body>
-	<form method = "post">
-	Username : <input type = "text" name = "username"/></br>
-	Password : <input type = "password" name = "password"/></br>
-			   <input type = "submit" value = "submit"/>
-	<a href = "./login.php?forgotpw=1">Forgot Password?</a>	
-	</form>
+	<div id = "container">
+	<div id = "login-table">
+		<form method = "post">
+			<table id = "login">
+				<tr>
+					<td>Username : </td>
+					<td><input type = "text" name = "username"/></td>
+				</tr>
+				<tr>
+					<td>Password :</td>
+					<td><input type = "password" name = "password"/></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><input type = "submit" value = "submit"/> <a href = "./login.php?forgotpw=1"><font color = "red">Forgot Password?</font></a></td>
+				</tr>
+			</table>
+		</form>
+		</div>
+	</div>
+	</div>
 	<?php
+	$log_menu->footer();
+	?>
+	</body>
+</html>
+<?php
 	}
 	else if(isset($_GET['forgotpw']))
 	{
 	?>
-			<form method="post">
+		<form method="post">
 			<input type="text" name="forgotpsw"/>
 			<input type="submit" value="send email"/>
 			<br/>
-			</form>
-	<?php
+		</form>
+<?php
 	}
-	$log_menu->footer();
-}
+} 
 else
 {
 	header('Location: view.php');
 	exit();
 }
-	?>
+?>

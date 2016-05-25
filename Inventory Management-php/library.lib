@@ -73,7 +73,7 @@ class allmenu
 				<br/>
 				<br/>
 				
-				<p id = "footer"><?php echo "Copyright© 2014 YongKuk Kim";?></p>
+				<p id = "footer"><?php echo "Copyright© 2016 YongKuk Kim";?></p>
 <?php
 	}
 }
