@@ -1,0 +1,252 @@
+<?php
+//this is database class containing: connect() function which connects to database, sql_query() which runs the query and prints error message if the query wrong,
+//close() which closes the database connectiion
+class db
+{
+	private $link;
+	
+	function connect()//this shows a connection to database
+	{
+		/*$lines = file('/home/bti320/secret/topsecret.txt');
+		$dbserver = trim($lines[0]);
+		$uid = trim($lines[1]);
+		$pw = trim($lines[2]);
+		$dbname = trim($lines[3]);*/
+		
+		$link = mysqli_connect('localhost', 'root', '', 'yongkuk') or die('Could not connect: ' . mysql_error());
+		
+		return $link;
+	}
+	function sql_query($query)
+	{
+		$result = mysqli_query($this->connect(), $query) or die('failed query: ' . mysql_error());
+		return $result;
+	}
+	function close()
+	{
+		mysqli_close($this->connect());
+	}
+}
+/*this is allmenu class containing: input() which takes search value from users in view page, prints header line and the background picture, 
+and prints menu directing to add page or view all page showing all the data you typed in, session() which displays username and its role,
+add_view() which prints header line and background picture, and takes user input in add page, footer() which shows copyright and tag for ending body and html*/
+class allmenu
+{
+	function input()
+	{
+?>
+			<html lang = "en">
+			<head>
+			  <meta charset="utf-8">
+			  <meta name="viewport" content="width=device-width, initial-scale=1">
+			  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+			  <link rel='stylesheet' type='text/css' href='//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'/>
+			  <link href="style.css" rel="stylesheet">
+			</head>
+			<body>
+				<table id = "menu-striped" class = "table table-striped">
+					<tr >
+						<form method = "post" action = "view.php">
+							<td><p id = "bold"><a href = "add.php">Add</a> | <a href = "view.php?done=1">View all</a></p></td>
+							<td id = "bold" align = "right">Search : <input type = "text"  name = "descr" value ="<?php if(isset($_SESSION['search_text'])) echo $_SESSION['search_text']; ?>"></td>
+							<td id = "bold"align = "left"><input type = "submit" value="FIND"/></td>
+							<td><?php $this->session();?></td>
+							<td id = "bold"align = "left"><a href = "logout.php"><font size = "1px">LogOut</font></a></td>
+						</form>
+					</tr>
+				</table>
+				<br/>
+			</body>
+			</html>
+<?php
+		
+	}
+	function session()
+	{
+?>
+			<p id = "boldsession" class = "bg-danger"><?php echo "User: " . $_SESSION['user'] . " |  Role: " . $_SESSION['role'];?></p>
+<?php
+	}	
+	function footer()
+	{
+?>
+				<br/>
+				<br/>
+				
+				<p id = "footer"><?php echo "Copyright© 2016 YongKuk Kim";?></p>
+<?php
+	}
+}
+// this is modify class containing : modi($id) which selects all the data with matching this id and helps to repopulate the data when users modify their records,
+//search() which sorts and and selects data by column and with search value, check_regex() which checks all the input values when users modify their records in add page.
+class modify
+{
+	function modi($id)
+	{
+		$modif = new db();
+		$query = "select * from inventory where id = '". $id ."'";
+		$result = $modif->sql_query($query);
+		
+				while ($row = mysqli_fetch_assoc($result)) 
+				{
+					$_SESSION['itemname'] = $row['itemName'];
+					$_SESSION['description']  = $row['description'];
+					$_SESSION['supplierCode'] = $row['supplierCode'];
+					$_SESSION['cost']     = $row['cost'];
+					$_SESSION['price']    = $row['price'];
+					$_SESSION['onHand']   = $row['onHand'];
+					$_SESSION['reorderPoint']  = $row['reorderPoint'];
+					$_SESSION['backOrder']  = $row['backOrder'];
+					$_SESSION['delete'] = $row['deleted'];
+					if($_SESSION['backOrder'] == 'y')
+					{
+						$_SESSION['backOrder'] = 'checked';
+					}
+					else if($_SESSION['backOrder'] == 'n')
+					{
+						$_SESSION['backOrder'] = '';
+					}
+				}
+	}
+	function search()
+	{
+			$datab = new db();
+			if($_POST && trim($_POST['descr']) == '')
+			{
+				unset($_SESSION['search_text']);
+			}
+			
+			if(isset($_SESSION['search_text']))
+			{
+				//if search and session exists, use search from post variable
+				$query = "select * from inventory where description like '%".$_SESSION['search_text']."%' order by ". $_SESSION['sort_table'] ."";
+			}
+
+			if($_POST && trim($_POST['descr']) != "")
+			{
+				//if searched and session not exists, use search from get variable
+				//htmlentities displays input value from users if they type wrong
+				$search = htmlentities($datab->connect()->real_escape_string(trim($_POST['descr'])));
+				$_SESSION['search_text'] = $search;
+				$query = "select * from inventory where description like '%".$_SESSION['search_text']."%' order by ". $_SESSION['sort_table'] ."";				
+
+			}
+			else if(isset($_SESSION['search_text']))
+			{ 
+				$query = "select * from inventory where description like '%".$_SESSION['search_text']."%' order by ". $_SESSION['sort_table'] ."";
+			}
+			else
+			{
+				$query = "select * from inventory order by ". $_SESSION['sort_table'] ."";
+			}
+			
+			return $query;
+	}
+	function check_regex()
+	{
+		$datavalid = true;
+		
+		if($_POST)//there are 7 validations for texts and numbers
+		{
+		$_SESSION['yesorno'] = "";
+		$_SESSION['namemsg'] = "";
+		$_SESSION['descmsg'] = "";
+		$_SESSION['supcodemsg'] = "";
+		$_SESSION['costmsg'] = "";
+		$_SESSION['pricemsg'] = "";
+		$_SESSION['onhandmsg'] = "";
+		$_SESSION['reorpomsg'] = "";
+		
+			$name = $_POST['name'];
+			$desc = $_POST['desc'];
+			$supcode = $_POST['supcode'];
+			$cost = $_POST['cost'];
+			$price = $_POST['price'];
+			$onhand = $_POST['onhand'];
+			$reorpo = $_POST['reorpo'];
+
+				if(!empty($_POST['onbaorder']))
+				{
+					$_SESSION['yesorno'] = "y";
+				}
+				else
+				{
+					$_SESSION['yesorno'] = "n";
+				}
+
+			if(preg_match("/^[\s:'\-;,a-zA-Z0-9]*$/", $_POST['name']) === 0)
+			{
+				$_SESSION['namemsg'] = "Error - It is invalid";
+				$datavalid = false;
+			}
+			if(trim($_POST['name']) == "")
+			{
+				$_SESSION['namemsg'] = "Error - It's empty";
+				$datavalid = false;
+			}			
+			if(preg_match("/^[\r\n.,'\-\sa-zA-Z0-9]*$/", $_POST['desc']) === 0)
+			{
+				$_SESSION['descmsg'] = "Error - It is invalid";
+				$datavalid = false;
+			}
+			if(trim($_POST['desc']) == "")
+			{
+				$_SESSION['descmsg'] = "Error - It's empty";
+				$datavalid = false;
+			}
+			if(preg_match("/^\s*[A-Z]{3}\d{3,}\s*$/", $_POST['supcode']) === 0)
+			{
+				$_SESSION['supcodemsg'] = "Error - It is invalid";
+				$datavalid = false;
+			}
+			if(trim($_POST['supcode']) == "")
+			{
+				$_SESSION['supcodemsg'] = "Error - It's empty";
+				$datavalid = false;
+			}
+			if(preg_match("/^\s*[0-9]+\.\d{2}\s*$/", $_POST['cost']) === 0)
+			{
+				$_SESSION['costmsg'] = "Error - It is invalid";
+				$datavalid = false;
+			}
+			if(trim($_POST['cost']) == "")
+			{
+				$_SESSION['costmsg'] = "Error - It's empty";
+				$datavalid = false;
+			}
+			if(preg_match("/^\s*[0-9]+\.\d{2}\s*$/", $_POST['price']) === 0)
+			{
+				$_SESSION['pricemsg'] = "Error - It is invalid";
+				$datavalid = false;
+			}
+			if(trim($_POST['price']) == "")
+			{
+				$_SESSION['pricemsg'] = "Error - It's empty";
+				$datavalid = false;
+			}
+			if(preg_match("/^\s*[0-9]+\s*$/", $_POST['onhand']) === 0)
+			{
+				$_SESSION['onhandmsg'] = "Error - Only numeric values please";
+				$datavalid = false;
+			}
+			if(trim($_POST['onhand']) == "")
+			{
+				$_SESSION['onhandmsg'] = "Error - It's empty";
+				$datavalid = false;
+			}
+			if(preg_match("/^\s*[0-9]+\s*$/", $_POST['reorpo']) === 0)
+			{
+				$_SESSION['reorpomsg'] = "Error - Only numeric values please";
+				$datavalid = false;
+			}
+			if(trim($_POST['reorpo']) == "")
+			{
+				$_SESSION['reorpomsg'] = "Error - It's empty";
+				$datavalid = false;
+			}
+			return $datavalid;
+		}
+	
+	}
+}
+?>
