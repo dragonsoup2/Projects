@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script type = "text/javascript" src="script.js"></script>
+	<link rel="stylesheet" href="animate.css">
+	<link href="style.css" type = "text/css" rel="stylesheet">
+</head>
+	<body>
+		<div class = "signindiv">
+			<div class = "signin">
+				<h2>Sign in</h2>
+				<form action = "/accountcheck" method = "post" enctype = "multipart/form-data">
+					<table class = "table table-striped">
+						<tr>
+							<td>E-mail</td>
+							<td><input type = "text" name = "email"/></td>
+						</tr>
+						<tr>
+							<td>Password</td>
+							<td><input type = "password" name = "pw"/></td>
+						</tr>
+						<tr>
+							<td><a href = "#">Forgot password</a></td>
+							<td><a href = "/signup">Sign up now</a></td>
+						</tr>
+						<tr>
+							<td colspan = "2"><input type = "submit" value = "Submit"/></td>
+						</tr>
+					</table>
+				</form>
+			</div>
+		</div>
+	</body>
+</html>

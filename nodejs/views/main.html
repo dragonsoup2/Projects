@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script type = "text/javascript" src="script.js"></script>
+	<link rel="stylesheet" href="animate.css">
+	<link href="style.css" type = "text/css" rel="stylesheet">
+</head>
+	
+	<body>
+	<div id = "whole">
+		<div id='cssmenu'>
+				<ul class = "menubar">
+					<li><a href = "#" class = "btn btn-sm">Game Schedule</a></li>
+					<li><a href = "#" class = "btn btn-sm">Find Match</a></li>
+					<li><a href = "#" class = "btn btn-sm">Share Board</a></li>
+					<li><a href = "#" class = "btn btn-sm">Contact</a></li>
+					<li><a href = "/signin" class = "btn btn-sm">Sign In</a></li>
+					<li><a href = "/signup" class = "btn btn-sm">Sign Up</a></li>
+				</ul>
+		</div>
+		<div id = "wallpaper">
+			<div id = 'info-slide'>
+				<div class = "image"><img src="photo1.jpg"/></div>
+				<div class = "image"><img src="photo2.jpg"/></div>
+				<div class = "image"><img src="photo3.jpg"/></div>
+				<div class ="dotstyle"><!-- Pagination -->
+					<button>1</button>
+					<button>2</button>
+					<button>3</button>
+				</div>
+				<div class = "masking"></div>
+			</div>
+		</div>
+		<div class = "border"><hr class = "line"></div>
+		<div class = "optiondiv">
+			<div class="option">
+				<img src = "lee.jpg"/>
+				<div class = "mask"></div>
+				<h2 class = "click">SET MATCH</h2>
+				<div class = "caption"><span>Opportunities for you and your team to play with other players <br />Post a match now!</span></div>
+			</div>
+			<div class="option">
+				<img src = "yasuo.jpg"/>
+				<div class = "mask"></div>
+				<h2 class = "click">Find Match</h2>
+				<div class = "caption"><span>Opportunities for you and your team to challenge other players<br />Find a match now!</span></div>
+			</div>
+			<div class="option">
+				<img src = "skt.jpg"/>
+				<div class = "mask"></div>
+				<h2 class = "click">FIND TEAMMATES</h2>
+				<div class = "caption"><span>Opportunities to find other players<br />Find teamates now!</span></div>
+			</div>
+		</div>
+
+		<div id = 'bottom-menu'></div>
+	</div>
+	</body>
+</html>
